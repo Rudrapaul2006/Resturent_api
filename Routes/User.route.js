@@ -1,10 +1,10 @@
 import express from 'express';
 import { getallUser, logoutUser, updateProfile, userDelete, userLogin, userProfile, userRegister } from '../Controller/user.controller.js';
-// let import 
+import { isAdmin } from '../Middlewere/admin.auth.js';
 
 let userRoute  = express.Router();
 
-//User login :
+//User login and registration :
 userRoute.post("/register" , userRegister);
 userRoute.post("/login" , userLogin);
 
@@ -13,6 +13,6 @@ userRoute.get("/profile" , userProfile);
 userRoute.put("/update" , updateProfile);
 userRoute.get("/logout" , logoutUser);
 userRoute.delete("/delete" , userDelete);
-userRoute.get("/alluser" , getallUser);
+userRoute.get("/alluser" ,isAdmin, getallUser);
 
 export default userRoute;

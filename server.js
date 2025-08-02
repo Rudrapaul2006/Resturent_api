@@ -9,6 +9,7 @@ import userRoute from './Routes/User.route.js';
 
 dotenv.config();
 
+//server creation :
 let server = express();
 server.use(express.json());
 server.use(cookieParser());

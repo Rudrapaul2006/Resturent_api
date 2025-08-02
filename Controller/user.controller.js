@@ -91,7 +91,7 @@ export let userLogin = async (req, res) => {
         return res.json({
             massage: "User login successfully ..",
             user: { name: user.name, email: user.email, role: user.role },
-            success: false
+            success: true
         })
 
     } catch (error) {
@@ -283,18 +283,18 @@ export let getallUser = async (req , res) => {
             })
         }
 
-        if (user.role === "user"){
-            return res.json({
-                massage : "User can't fetched , profile's .. (Only Admin's can)",
-                success : false 
-            })
-        }
-        if (!user || user.role !== "admin") {
-            res.json({
-                massage: "user not found ..",
-                success: false
-            })
-        } 
+        // if (user.role === "user"){
+        //     return res.json({
+        //         massage : "User can't fetched , profile's .. (Only Admin's can)",
+        //         success : false 
+        //     })
+        // }
+        // if (!user || user.role !== "admin") {
+        //     res.json({
+        //         massage: "user not found ..",
+        //         success: false
+        //     })
+        // } 
 
         let users = await User.find().select("-password");
         if(!users){
