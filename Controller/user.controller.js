@@ -283,19 +283,6 @@ export let getallUser = async (req , res) => {
             })
         }
 
-        // if (user.role === "user"){
-        //     return res.json({
-        //         massage : "User can't fetched , profile's .. (Only Admin's can)",
-        //         success : false 
-        //     })
-        // }
-        // if (!user || user.role !== "admin") {
-        //     res.json({
-        //         massage: "user not found ..",
-        //         success: false
-        //     })
-        // } 
-
         let users = await User.find().select("-password");
         if(!users){
             return res.json({
