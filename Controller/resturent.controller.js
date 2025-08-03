@@ -37,7 +37,7 @@ export let resturentDetails = async (req, res) => {
     }
 }
 
-//Get Resturent Details :
+//Get Resturent Details : (also user can) :
 export let getResturentDetails = async (req, res) => {
 
     // try {
