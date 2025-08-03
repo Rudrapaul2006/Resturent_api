@@ -7,7 +7,7 @@ import jwt from 'jsonwebtoken';
 export let userRegister = async (req, res) => {
     try {
         let { name, email, password, adress, phoneno, role } = req.body;
-        if (!name || !email || !password || !role) {
+        if (!name || !email || !password || !adress || !phoneno || !role) {
             res.json({
                 massage: "All Fields Are Required ..",
                 success: true

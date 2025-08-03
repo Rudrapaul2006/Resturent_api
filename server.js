@@ -6,6 +6,8 @@ import cookieParser from 'cookie-parser';
 
 //user router import :
 import userRoute from './Routes/User.route.js';
+//Resturent details router import :
+import resturentRoute from './Routes/resturent.route.js';
 
 dotenv.config();
 
@@ -30,9 +32,10 @@ server.get('/' , (req , res) => {
 
 //Routing :    
 server.use('/api/user' , userRoute); 
+server.use('/api/resturent' , resturentRoute);
 
 //server's port :
 let port = process.env.PORT;
 server.listen(port , () => {
     console.log(chalk.yellow(`Server Running At Port : http://localhost:${port}`) );
-})
+}) 

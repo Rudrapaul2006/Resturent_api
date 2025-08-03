@@ -22,7 +22,7 @@ export let isAdmin = async (req, res, next) => {
 
         if (user.role === "user"){
             return res.json({
-                massage : "User can't fetched profile's .. (Only Admin's can)",
+                massage : "User can't it .. (Only Admin's can)",
                 success : false 
             })
         }
