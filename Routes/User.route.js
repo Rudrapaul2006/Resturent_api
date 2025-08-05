@@ -12,7 +12,7 @@ userRoute.post("/login" , userLogin);
 userRoute.get("/profile" , userProfile);
 userRoute.put("/update" , updateProfile);
 userRoute.get("/logout" , logoutUser);
-userRoute.delete("/delete" , userDelete);
+userRoute.delete("/delete" , userDelete); // Delete a user ( only admin can do that ..)
 userRoute.get("/alluser" ,isAdmin, getallUser);
 
 export default userRoute;

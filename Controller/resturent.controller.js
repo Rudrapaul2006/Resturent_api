@@ -4,8 +4,8 @@ import Restaurant from "../Models/resturent_details.model.js";
 //Creating restuent details :
 export let resturentDetails = async (req, res) => {
     try {
-        let { name, adress, fooditems, phone, openinghours } = req.body;
-        if (!name || !adress || !fooditems || !phone || !openinghours) {
+        let { name, adress, email, phone, openinghours } = req.body;
+        if (!name || !adress || !email || !phone || !openinghours) {
             return res.json({
                 massage: "All fields are required ..",
                 success: true
@@ -21,7 +21,7 @@ export let resturentDetails = async (req, res) => {
             })
         }
 
-        let details = await Restaurant.create({ name, adress, fooditems, phone, openinghours });
+        let details = await Restaurant.create({ name, adress, email, phone, openinghours });
         return res.json({
             massage: "Resturent details created successfully ...",
             details: details,
@@ -88,17 +88,17 @@ export let updateResturentDetails = async (req, res) => {
     try {
         let { name } = req.params;
 
-        let { fooditems, phone, openinghours } = req.body;
-        if (!fooditems && !phone && !openinghours) {
+        let { email, phone, openinghours } = req.body;
+        if (!email && !phone && !openinghours) {
             return res.status(400).json({
-                message: "At least one field (fooditems, phone, openinghours) is required to update ( you cant change adress and name )",
+                message: "At least one field (email, phone, openinghours) is required to update ( you cant change adress and name )",
                 success: false
             });
         }
 
         let resturent = await Restaurant.findOneAndUpdate(
             { name },
-            { fooditems, phone, openinghours }
+            { email, phone, openinghours }
         )
 
         if (!resturent) {

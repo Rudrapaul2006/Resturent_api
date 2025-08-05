@@ -8,6 +8,8 @@ import cookieParser from 'cookie-parser';
 import userRoute from './Routes/User.route.js';
 //Resturent details router import :
 import resturentRoute from './Routes/resturent.route.js';
+//Resturent menu route import :
+import menuRoute from './Routes/menu.route.js';
 
 dotenv.config();
 
@@ -33,6 +35,7 @@ server.get('/' , (req , res) => {
 //Routing :    
 server.use('/api/user' , userRoute); 
 server.use('/api/resturent' , resturentRoute);
+server.use('/api/menu' , menuRoute);
 
 //server's port :
 let port = process.env.PORT;

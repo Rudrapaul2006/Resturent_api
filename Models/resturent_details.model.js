@@ -5,14 +5,18 @@ let restaurantSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    email : {
+        type : String,
+        required : true
+    },
     adress: {
         type: String,
-        required: true
+        required: true,
     },
-    fooditems: {
-        type: [String], // e.g., ["Pizza", "Burger", "Biryani"]
-        required: true
-    },
+    // fooditems: {
+    //     type: [String], // e.g., ["Pizza", "Burger", "Biryani"]
+    //     required: true
+    // },
     phone: {
         type: String,
         required: true
