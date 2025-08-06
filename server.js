@@ -10,6 +10,8 @@ import userRoute from './Routes/User.route.js';
 import resturentRoute from './Routes/resturent.route.js';
 //Resturent menu route import :
 import menuRoute from './Routes/menu.route.js';
+//Order route import :
+import orderRoute from './Routes/order.routes.js';
 
 dotenv.config();
 
@@ -36,6 +38,7 @@ server.get('/' , (req , res) => {
 server.use('/api/user' , userRoute); 
 server.use('/api/resturent' , resturentRoute);
 server.use('/api/menu' , menuRoute);
+server.use('/api/order' , orderRoute);
 
 //server's port :
 let port = process.env.PORT;

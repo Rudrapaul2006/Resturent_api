@@ -108,6 +108,32 @@ export let getAllMenu = async (req, res) => {
 }
 
 
+//Get menu ijtem by id :
+export let getMenuById = async (req, res) => {
+    try {
+        let menu = await Menu.findById(req.params.id);
+        if(!menu){
+            return res.json({
+                massage : "This menu is not available ..",
+                success : false
+            })
+        }
+
+        return res.json({
+            massage: "Found the menu ..",
+            Menu: menu,
+            success: true
+        })
+
+    } catch (error) {
+        console.error(error);
+        return res.json({
+            massage: "Internal server error ..",
+            success: false
+        })
+    }
+}
+
 //Delete menu by id :
 export let deleteMenu = async (req, res) => {
     try {
