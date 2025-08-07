@@ -4,40 +4,40 @@ import { Menu } from "../Models/Menu.model.js";
 //Create Menu :
 export let addMenu = async (req, res) => {
     try {
-    let newMenus = req.body; // expecting array of menu items
-    let insertedMenus = [];
+        let newMenus = req.body; // expecting array of menu items
+        let insertedMenus = [];
 
-    for (let item of newMenus) {
-      let exists = await Menu.findOne({ name: item.name });
+        for (let item of newMenus) {
+            let exists = await Menu.findOne({ name: item.name });
 
-      if (!exists) {
-        // Insert the item if it does not exist
-        let newItem = new Menu(item);
-        await newItem.save();
-        insertedMenus.push(newItem);
-      }
+            if (!exists) {
+                // Insert the item if it does not exist
+                let newItem = new Menu(item);
+                await newItem.save();
+                insertedMenus.push(newItem);
+            }
+        }
+
+        if (insertedMenus.length === 0) {
+            return res.status(400).json({
+                message: "All items or (This item) already exist in the database ..",
+                success: false,
+            });
+        }
+
+        return res.status(201).json({
+            message: "New menu items added.",
+            success: true,
+            menu: insertedMenus,
+        });
+
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({
+            message: "Internal server error.",
+            success: false,
+        });
     }
-
-    if (insertedMenus.length === 0) {
-      return res.status(400).json({
-        message: "All items or (This item) already exist in the database ..",
-        success: false,
-      });
-    }
-
-    return res.status(201).json({
-      message: "New menu items added.",
-      success: true,
-      menu: insertedMenus,
-    });
-
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({
-      message: "Internal server error.",
-      success: false,
-    });
-  }
 }
 
 //Update Menu By id :
@@ -52,7 +52,7 @@ export let updateMenu = async (req, res) => {
             })
         }
 
-        let { name, description, price } = req.body;
+        let { name, description, price, category , available } = req.body;
         if (!name && !price && !description) {
             return res.json({
                 massage: "Update atleast one thing ( name / description / price ) ..",
@@ -60,9 +60,26 @@ export let updateMenu = async (req, res) => {
             })
         }
 
+        if (available !== undefined && available !== 'true' && available !== 'false' ) {
+            return res.status(400).json({
+                success: false,
+                message: "Available must be true or false",
+            });
+        }
+
+        if (category !== undefined && category !== 'starter' && category !== 'main course'  && category !== 'dessert' && category !== 'drinks' && category !== 'others') {
+            return res.status(400).json({
+                success: false,
+                message: "Category must be (starter or main course or dessert or drinks and others)",
+            });
+        }
+
+
         if (name) menu.name = name;
         if (description) menu.description = description;
         if (price) menu.price = price;
+        if (category) menu.category = category;
+        if (available) menu.available = available;
         menu.save();
 
         return res.json({
@@ -112,10 +129,10 @@ export let getAllMenu = async (req, res) => {
 export let getMenuById = async (req, res) => {
     try {
         let menu = await Menu.findById(req.params.id);
-        if(!menu){
+        if (!menu) {
             return res.json({
-                massage : "This menu is not available ..",
-                success : false
+                massage: "This menu is not available ..",
+                success: false
             })
         }
 

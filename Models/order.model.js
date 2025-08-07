@@ -29,6 +29,7 @@
     type: Number,
     required: true,
   },
+  
   } , { timestamps : true });
 
   export let  Order = mongoose.model("Order", orderSchema);

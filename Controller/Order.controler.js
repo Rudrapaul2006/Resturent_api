@@ -4,6 +4,7 @@ import User from "../Models/user.model.js"
 import jwt from 'jsonwebtoken';
 
 
+//Create order :
 export let createOrder = async (req, res) => {
   try {
    let token = req.cookies.token;
@@ -33,6 +34,7 @@ export let createOrder = async (req, res) => {
       })
     }
 
+
     for (let item of items){
       let {menuItem , quantity } = item ;
 
@@ -50,6 +52,14 @@ export let createOrder = async (req, res) => {
           success : false
         })
       }
+      
+      if(menu.available === false){
+        return res.status(404).json({
+          massage : `${menu.name} is not available ..`,
+          success : false
+        })
+      }
+      
 
       // With GST :
       // totalPrice +=( menu.price * quantity ) + (menu.price * quantity * .18)
@@ -72,7 +82,7 @@ export let createOrder = async (req, res) => {
     // Populate response
     let populatedOrder = await Order.findById(newOrder.id)
       .populate("user", "name email role")
-      .populate("items.menuItem", "name price");
+      .populate("items.menuItem", "name price available");
 
     return res.status(201).json({
       success: true,
@@ -138,6 +148,40 @@ export let getAllOrder = async (req , res) => {
       massage : "The Order ..",
       order : menu
     })
+  } catch (error) {
+    console.error(err);
+    return res.status(500).json({
+      success: false,
+      message: "Server error",
+    })
+  }
+}
+
+
+//Delete Order By ID :
+export let deleteOrderById = async (req , res) => {
+  try {
+    let id = req.params.id;
+    if(!id){
+      return res.json({
+        massage : "Menu id not found ..",
+        success : false
+      })
+    }
+
+    let menu = await Order.findByIdAndDelete(id);
+    if(!menu){
+      return res.json({
+        massage : "Menu id not found ..",
+        success : false
+      })
+    }
+
+    return res.json({
+      massage : "The Order deleted succesfully..",
+      success : true
+    })
+
   } catch (error) {
     console.error(err);
     return res.status(500).json({

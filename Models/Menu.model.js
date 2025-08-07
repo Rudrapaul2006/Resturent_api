@@ -19,7 +19,7 @@ let menuSchema = new mongoose.Schema(
         category: {
             type: String,
             enum: ["starter", "main course", "dessert", "drinks", "others"],
-            default: "main course", // ✅ fixed
+            // default: "main course", // ✅ fixed
         },
         image: {
             type: String,
@@ -27,6 +27,7 @@ let menuSchema = new mongoose.Schema(
         },
         available: {
             type: Boolean,
+            enum : ["true" , "false"],
             default: true,
         },
     },
